@@ -36,14 +36,6 @@ if [ -d "$PROJECT_ROOT" ]; then
   exit 1
 fi
 
-mkdir -p $PROJECT_ROOT
-$ret=$?
-if [ ! $ret -eq 0 ]; then
-  echo "Failed to create folder at $PROJECT_ROOT, try a different path"
-  usage
-  exit 1
-fi
-
 # $1 -> Display name
 # $2 -> Project
 clone() {
