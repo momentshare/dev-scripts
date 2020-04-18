@@ -25,7 +25,7 @@ if [ -z "$PROJECT_ROOT" ]; then
     exit 1
   fi
 
-  echo "No install path was passed in, using default $PROJECT_ROOT"
+  echo "using default $PROJECT_ROOT"
   usage
 fi
 
