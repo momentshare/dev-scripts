@@ -41,7 +41,7 @@ clone() {
 echo "Cloning all repos"
 echo
 
-clone "Development" "development"
+clone "Development" "dev-scripts"
 clone "Website" "website"
 clone "API Server" "backend"
 clone "Mobile App" "momentshare"
