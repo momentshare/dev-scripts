@@ -1,0 +1,52 @@
+#!/bin/bash
+
+CWD="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
+set -e
+
+if ! hash docker-compose 2>/dev/null; then
+    echo "Error: Could not find 'docker-compose' on the path, make sure it is installed and available on the PATH"
+    exit 1
+fi
+
+compose() {
+    docker-compose -f "$CWD/database/docker-compose.yml" $@
+}
+
+usage() {
+    echo "Usage:"
+    echo "    ./db <start|stop|logs>"
+}
+
+start() {
+    echo "Starting Postgres Docker"
+    compose up -d $@
+}
+
+stop() {
+    echo "Stopping Postgres Docker"
+    compose down $@
+}
+
+logs() {
+    compose logs -f $@
+}
+
+COMMAND=$1
+shift
+case "$COMMAND" in
+"start")
+    start $@
+    ;;
+"stop")
+    stop $@
+    ;;
+"logs")
+    logs $@
+    ;;
+*)
+    echo "Missing or invalid command"
+    usage
+    exit 1
+    ;;
+esac
