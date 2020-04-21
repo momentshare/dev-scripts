@@ -15,7 +15,7 @@ compose() {
 
 usage() {
     echo "Usage:"
-    echo "    ./db <start|stop|logs>"
+    echo "    ./db <start|stop|logs|exec>"
 }
 
 start() {
@@ -44,9 +44,14 @@ case "$COMMAND" in
 "logs")
     logs $@
     ;;
+"exec")
+    compose exec db /bin/bash $@
+    ;;
 *)
     echo "Missing or invalid command"
     usage
     exit 1
     ;;
 esac
+
+echo "All done!"
