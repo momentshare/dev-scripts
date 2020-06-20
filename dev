@@ -10,21 +10,21 @@ if ! hash docker-compose 2>/dev/null; then
 fi
 
 compose() {
-    docker-compose -f "$CWD/database/docker-compose.yml" $@
+    docker-compose -f "$CWD/docker/docker-compose.yml" $@
 }
 
 usage() {
     echo "Usage:"
-    echo "    ./db <start|stop|logs|exec>"
+    echo "    ./dev <start|stop|logs|db|s3>"
 }
 
 start() {
-    echo "Starting Postgres Docker"
+    echo "Starting Development Docker Environment"
     compose up -d $@
 }
 
 stop() {
-    echo "Stopping Postgres Docker"
+    echo "Stopping Development Docker Environment"
     compose down $@
 }
 
@@ -44,8 +44,11 @@ case "$COMMAND" in
 "logs")
     logs $@
     ;;
-"exec")
+"db")
     compose exec db /bin/bash $@
+    ;;
+"s3")
+    compose exec s3 /bin/bash $@
     ;;
 *)
     echo "Missing or invalid command"

@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9001:8080
+
+  s3:
+    image: minio/minio
+    ports:
+        - 9002:9000
+    environment:
+      MINIO_ACCESS_KEY: yKEVjU8rWB7mgXfj
+      MINIO_SECRET_KEY: yKEVjU8rWB7mgXfj
+    volumes:
+      - ./data/s3:/data
+    command:  minio server /data
